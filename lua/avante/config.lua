@@ -196,7 +196,7 @@ local function copilot_use_response_api(opts)
   return type(model) == "string" and model:match("gpt%-%d+%.?%d*%-codex") ~= nil
 end
 
----@alias avante.ProviderName "claude" | "openai" | "azure" | "gemini" | "vertex" | "cohere" | "copilot" | "bedrock" | "ollama" | "watsonx_code_assistant" | "mistral" | string
+---@alias avante.ProviderName "cerebras" | "claude" | "openai" | "azure" | "gemini" | "vertex" | "cohere" | "copilot" | "bedrock" | "ollama" | "watsonx_code_assistant" | "mistral" | string
 
 ---@class avante.file_selector.IParams
 ---@field public title      string
@@ -599,6 +599,23 @@ M._defaults = {
         temperature = 0.75,
         max_completion_tokens = 16384, -- Increase this to include reasoning tokens (for reasoning models). For Response API, will be converted to max_output_tokens
         reasoning_effort = "medium", -- low|medium|high, only used for reasoning models. For Response API, this will be converted to reasoning.effort
+        -- background = false, -- Response API only: set to true to start a background task
+        -- NOTE: previous_response_id is automatically managed by the provider for tool calling - don't set manually
+      },
+    },
+    cerebras = {
+      endpoint = "http://api.cerebras.ai/v1",
+      api_key_name = "CEREBRAS_API_KEY",
+      model = "zai-glm-4.7",
+      timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
+      context_window = 128000, -- Number of tokens to send to the model for context
+      use_response_api = copilot_use_response_api, -- Automatically switch to Response API for GPT-5 Codex models
+      support_previous_response_id = true, -- OpenAI Response API supports previous_response_id for stateful conversations
+      -- NOTE: Response API automatically manages conversation state using previous_response_id for tool calling
+      extra_request_body = {
+        temperature = 0.75,
+        max_completion_tokens = 16384, -- Increase this to include reasoning tokens (for reasoning models). For Response API, will be converted to max_output_tokens
+        -- reasoning_effort = "medium", -- low|medium|high, only used for reasoning models. For Response API, this will be converted to reasoning.effort
         -- background = false, -- Response API only: set to true to start a background task
         -- NOTE: previous_response_id is automatically managed by the provider for tool calling - don't set manually
       },
