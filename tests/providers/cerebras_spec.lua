@@ -299,7 +299,7 @@ busted.describe("cerebras provider", function()
         ['data: {"reasoning"  :  "text"}'] = 'data: {"reasoning_content"  :  "text"}',
       }
 
-      for input, expected in pairs(test_cases) do
+      for input, _ in pairs(test_cases) do
         local mock_ctx = {}
         local chunk_content = ""
         local opts = {}

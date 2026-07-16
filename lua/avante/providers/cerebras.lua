@@ -1,6 +1,36 @@
+---@mod avante.providers.cerebras Cerebras Provider
+---@brief [[
+---
+--- Cerebras provider for avante.nvim.
+---
+--- This provider extends the OpenAI provider to support Cerebras' API,
+--- with special handling for reasoning field renaming between
+--- `reasoning_content` and `reasoning` fields.
+---
+--- Configuration~:
+---
+--- Basic usage:
+--->lua
+---   require("avante").setup({
+---     provider = "cerebras",
+---     providers = {
+---       cerebras = {
+---         endpoint = "https://api.cerebras.ai/v1",
+---         model = "zlm-4.7",
+---         timeout = 30000,
+---       },
+---     },
+---   })
+---<
+---
+--- Environment Variables~:
+---
+--- - `CEREBRAS_API_KEY`: Your Cerebras API key
+---
+---@brief ]]
 local OpenAI = require("avante.providers").openai
 
----@class AvanteProviderFunctor
+---@class AvanteCerebrasProviderFunctor
 local M = {}
 
 M.api_key_name = "CEREBRAS_API_KEY"

@@ -385,6 +385,8 @@ vim.g.avante_login = vim.g.avante_login
 ---@field is_temperature_unsupported fun(string): boolean
 ---@field transform_anthropic_usage any
 ---
+---@class AvanteCerebrasProviderFunctor: AvanteProviderFunctor
+---
 ---@class AvanteACPProvider
 ---@field command string
 ---@field args string[]
